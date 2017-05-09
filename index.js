@@ -3,7 +3,7 @@
 const build = require('./lib/build')
 const report = require('./lib/report')
 
-const branchesToExclude = ['master']
+const branchesToExclude = []
 const branchEnvironments = {
   'master': 'production',
   'staging': 'staging'
