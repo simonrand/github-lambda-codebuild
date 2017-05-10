@@ -19,7 +19,7 @@ exports.handler = (event, context, callback) => {
     if(branchesToExclude.includes(branch)) return console.log(`Not building ${branch}, exiting.`)
     if(message.deleted) return console.log('Branch deleted, exiting.')
 
-    build.run(message.after, branchEnvironments[branch])
+    build.run(message.after, branchEnvironments[branch], message.pusher.name)
       .then(resp => {
         callback(null, resp)
       })
