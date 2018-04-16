@@ -15,11 +15,12 @@ exports.handler = (event, context, callback) => {
     const message = JSON.parse(event.Records[0].Sns.Message)
 
     if(message && message.after) {
+      if(message.deleted) return console.log('Branch deleted, exiting.')
+
       // Message from GitHub, building
       const branch = message.ref.split('/').slice(-1)[0]
 
       if(branchesToExclude.includes(branch)) return console.log(`Not building ${branch}, exiting.`)
-      if(message.deleted) return console.log('Branch deleted, exiting.')
 
       build.run(message.after, branchEnvironments[branch], message.pusher.name)
         .then(resp => {
